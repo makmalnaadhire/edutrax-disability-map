@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* === Base Custom Properties === */
+:root {
+  --text-scale: 1;
+
+  /* Light theme (default) */
+  --background: #ffffff;
+  --foreground: #1a1a2e;
+  --primary: #1e40af;
+  --primary-hover: #1e3a8a;
+  --secondary: #059669;
+  --secondary-hover: #047857;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --accent: #f59e0b;
+  --destructive: #dc2626;
+  --card: #ffffff;
+  --card-foreground: #1a1a2e;
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* === Theme: Dark === */
+.theme-dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --primary: #60a5fa;
+  --primary-hover: #93bbfd;
+  --secondary: #34d399;
+  --secondary-hover: #6ee7b7;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --border: #334155;
+  --accent: #fbbf24;
+  --destructive: #f87171;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f8fafc;
+}
+
+/* === Theme: Monochrome === */
+.theme-monochrome {
+  --background: #ffffff;
+  --foreground: #000000;
+  --primary: #000000;
+  --primary-hover: #333333;
+  --secondary: #333333;
+  --secondary-hover: #555555;
+  --muted: #f5f5f5;
+  --muted-foreground: #444444;
+  --border: #000000;
+  --accent: #666666;
+  --destructive: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+}
+
+/* === Theme: High Contrast Yellow === */
+.theme-high-contrast-yellow {
+  --background: #000000;
+  --foreground: #ffff00;
+  --primary: #ffff00;
+  --primary-hover: #ffff66;
+  --secondary: #00ff00;
+  --secondary-hover: #66ff66;
+  --muted: #1a1a00;
+  --muted-foreground: #cccc00;
+  --border: #ffff00;
+  --accent: #ff00ff;
+  --destructive: #ff0000;
+  --card: #1a1a00;
+  --card-foreground: #ffff00;
+  --sidebar: #000000;
+  --sidebar-foreground: #ffff00;
+}
+
+/* === Dyslexia-friendly Font === */
+.dyslexia-font {
+  --font-geist-sans: "OpenDyslexic", "Comic Sans MS", cursive;
+}
+
+/* === Reduce Motion === */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* === Text Scale === */
+html {
+  font-size: calc(16px * var(--text-scale));
+}
+
+/* === Base Styles === */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* === Focus Visible === */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* === Skip Link === */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* === Scrollbar Styling === */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* === High Contrast Yellow Theme Overrides === */
+.theme-high-contrast-yellow a {
+  color: #ffff00;
+  text-decoration: underline;
+}
+
+.theme-high-contrast-yellow button {
+  border-color: #ffff00;
+}
+
+.theme-high-contrast-yellow input,
+.theme-high-contrast-yellow textarea,
+.theme-high-contrast-yellow select {
+  background: #1a1a00;
+  color: #ffff00;
+  border-color: #ffff00;
+}
+
+/* === Monochrome Theme Pattern Overrides (for charts) === */
+.theme-monochrome .chart-pattern-stripe {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    #000 2px,
+    #000 4px
+  );
+}
+
+.theme-monochrome .chart-pattern-dots {
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 4px 4px;
+}

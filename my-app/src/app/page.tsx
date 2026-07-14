@@ -355,13 +355,13 @@ export default function HomePage() {
 
           <div className="flex items-center gap-1">
             <Link
-              href="#features"
+              href="/features"
               className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 dark:focus:ring-white"
             >
               Features
             </Link>
             <Link
-              href="#metrics"
+              href="/metrics"
               className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 dark:focus:ring-white"
             >
               Metrics

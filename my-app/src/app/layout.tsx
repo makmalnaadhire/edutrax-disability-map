@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AccessibilityProvider } from "@/hooks/useAccessibilitySettings";
+import { AccessibilityProvider } from "@/context/AccessibilityContext";
 import { SkipToContent } from "@/components/common/SkipToContent";
 import { AccessibilityToolbar } from "@/components/common/AccessibilityToolbar";
 

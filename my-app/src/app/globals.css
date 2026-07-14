@@ -43,7 +43,7 @@
 }
 
 /* === Theme: Dark === */
-.theme-dark {
+.dark {
   --background: #0f172a;
   --foreground: #f1f5f9;
   --primary: #60a5fa;
@@ -62,7 +62,7 @@
 }
 
 /* === Theme: Monochrome === */
-.theme-monochrome {
+.monochrome {
   --background: #ffffff;
   --foreground: #000000;
   --primary: #000000;
@@ -81,7 +81,7 @@
 }
 
 /* === Theme: High Contrast Yellow === */
-.theme-high-contrast-yellow {
+.hc-yellow {
   --background: #000000;
   --foreground: #ffff00;
   --primary: #ffff00;
@@ -100,7 +100,7 @@
 }
 
 /* === Dyslexia-friendly Font === */
-.dyslexia-font {
+.font-dyslexic {
   --font-geist-sans: "OpenDyslexic", "Comic Sans MS", cursive;
 }
 
@@ -116,7 +116,7 @@
 
 /* === Text Scale === */
 html {
-  font-size: calc(16px * var(--text-scale));
+  font-size: 16px;
 }
 
 /* === Base Styles === */
@@ -170,25 +170,25 @@ body {
 }
 
 /* === High Contrast Yellow Theme Overrides === */
-.theme-high-contrast-yellow a {
+.hc-yellow a {
   color: #ffff00;
   text-decoration: underline;
 }
 
-.theme-high-contrast-yellow button {
+.hc-yellow button {
   border-color: #ffff00;
 }
 
-.theme-high-contrast-yellow input,
-.theme-high-contrast-yellow textarea,
-.theme-high-contrast-yellow select {
+.hc-yellow input,
+.hc-yellow textarea,
+.hc-yellow select {
   background: #1a1a00;
   color: #ffff00;
   border-color: #ffff00;
 }
 
 /* === Monochrome Theme Pattern Overrides (for charts) === */
-.theme-monochrome .chart-pattern-stripe {
+.monochrome .chart-pattern-stripe {
   background-image: repeating-linear-gradient(
     45deg,
     transparent,
@@ -198,7 +198,7 @@ body {
   );
 }
 
-.theme-monochrome .chart-pattern-dots {
+.monochrome .chart-pattern-dots {
   background-image: radial-gradient(#000 1px, transparent 1px);
   background-size: 4px 4px;
 }

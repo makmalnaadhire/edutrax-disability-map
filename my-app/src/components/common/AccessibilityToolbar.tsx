@@ -16,38 +16,36 @@ import {
   Plus,
   Languages,
 } from "lucide-react";
-import { useAccessibility } from "@/hooks/useAccessibilitySettings";
-import { THEME_MODES, type ThemeMode } from "@/lib/constants";
+import { useAccessibility, type ThemeMode } from "@/context/AccessibilityContext";
+import { THEME_MODES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function AccessibilityToolbar() {
   const {
-    themeMode,
-    textScale,
+    theme,
+    textSize,
     dyslexiaFont,
     textToSpeech,
     reduceMotion,
-    setThemeMode,
-    setTextScale,
+    setTheme,
+    increaseTextSize,
+    decreaseTextSize,
     toggleDyslexiaFont,
-    toggleTextToSpeech,
     toggleReduceMotion,
-    resetSettings,
+    toggleTextToSpeech,
+    resetToDefaults,
   } = useAccessibility();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [activePanel, setActivePanel] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   const handleToggle = useCallback(() => {
     setIsOpen((prev) => !prev);
-    setActivePanel(null);
   }, []);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
-    setActivePanel(null);
     triggerRef.current?.focus();
   }, []);
 
@@ -81,10 +79,9 @@ export function AccessibilityToolbar() {
 
   // Close on Escape
   useEffect(() => {
+    if (!isOpen) return;
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && isOpen) {
-        handleClose();
-      }
+      if (e.key === "Escape") handleClose();
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
@@ -95,13 +92,6 @@ export function AccessibilityToolbar() {
     dark: <Moon className="h-4 w-4" aria-hidden="true" />,
     monochrome: <Contrast className="h-4 w-4" aria-hidden="true" />,
     highContrastYellow: <Eye className="h-4 w-4" aria-hidden="true" />,
-  };
-
-  const themeColors: Record<ThemeMode, string> = {
-    light: "bg-white text-gray-900 border-gray-200",
-    dark: "bg-gray-900 text-white border-gray-700",
-    monochrome: "bg-black text-white border-white",
-    highContrastYellow: "bg-black text-yellow-400 border-yellow-400",
   };
 
   return (
@@ -168,13 +158,13 @@ export function AccessibilityToolbar() {
               {(Object.keys(THEME_MODES) as ThemeMode[]).map((mode) => (
                 <button
                   key={mode}
-                  onClick={() => setThemeMode(mode)}
-                  aria-pressed={themeMode === mode}
+                  onClick={() => setTheme(mode)}
+                  aria-pressed={theme === mode}
                   className={cn(
                     "flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium",
                     "border transition-all",
                     "focus:outline-none focus:ring-2 focus:ring-blue-500",
-                    themeMode === mode
+                    theme === mode
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
                   )}
@@ -186,15 +176,15 @@ export function AccessibilityToolbar() {
             </div>
           </div>
 
-          {/* Text scale */}
+          {/* Text size */}
           <div className="border-b border-gray-100 px-4 py-3">
             <p className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Text Size
             </p>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setTextScale(Math.max(100, textScale - 25))}
-                disabled={textScale <= 100}
+                onClick={decreaseTextSize}
+                disabled={textSize <= 100}
                 aria-label="Decrease text size"
                 className={cn(
                   "flex h-8 w-8 items-center justify-center rounded-md border",
@@ -207,12 +197,12 @@ export function AccessibilityToolbar() {
               </button>
               <div className="flex-1 text-center">
                 <span className="text-sm font-semibold text-gray-900">
-                  {textScale}%
+                  {textSize}%
                 </span>
               </div>
               <button
-                onClick={() => setTextScale(Math.min(200, textScale + 25))}
-                disabled={textScale >= 200}
+                onClick={increaseTextSize}
+                disabled={textSize >= 200}
                 aria-label="Increase text size"
                 className={cn(
                   "flex h-8 w-8 items-center justify-center rounded-md border",
@@ -257,7 +247,7 @@ export function AccessibilityToolbar() {
           {/* Reset */}
           <div className="border-t border-gray-100 px-4 py-3">
             <button
-              onClick={resetSettings}
+              onClick={resetToDefaults}
               className={cn(
                 "flex w-full items-center justify-center gap-2 rounded-lg",
                 "border border-gray-200 px-3 py-2",
